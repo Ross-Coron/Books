@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Results
+{% endblock %}
+
+{% block body %}
+
+<div class="container pt-4" align="center">
+
+    <div class="text_above_table">
+        <h1>Search Results</h1>
+    </div>
+
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Book</th>
+                <th scope="col">Author</th>
+                <th scope="col">Year</th>
+                <th scope="col">ISBN</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.title }}</td>
+                <td>{{ result.author }}</td>
+                <td>{{ result.year }}</td>
+                <td><a href="{{ url_for('isbn', isbn=result.isbn) }}">{{ result.isbn }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tr>
+            <td colspan="4">{{ counter }} result(s) found. Click ISBN number for more information and to submit a review.</td>
+        </tr>
+    </table>
+</div>
+
+{% endblock %}

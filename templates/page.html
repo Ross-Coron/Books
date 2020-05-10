@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Page
+{% endblock %}
+
+{% block body %}
+
+<div class="container pt-4">
+
+    <h1>{{ result.title }}</h1>
+
+    <div class="container pt-4 pb-4">
+        <ul>
+            <li>
+                <b>Book details: </b> {{ result.title }} by {{ result.author }} ({{ result.year }}). ISBN: ({{ result.isbn }}.)
+            </li>
+            <li>
+                <b>Goodreads Information: </b> Average rating: {{ rating }}. Total number of reviews: {{ num_reviews }}.
+            </li>
+        </ul>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+
+            <form action="{{ url_for('review', isbn=result.isbn) }}" method="post">
+
+                <div class="form-group w-50">
+                    <label for="inlineFormCustomSelect">Rate this book:</label>
+                    <select class="custom-select mr-sm-2" name="review_score" {% if review_status == true %} disabled {% endif %}>
+                        <option disabled selected>Rate</option>
+                        <option value="1">★</option>
+                        <option value="2">★★</option>
+                        <option value="3">★★★</option>
+                        <option value="4">★★★★</option>
+                        <option value="5">★★★★★</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Write a review:</label>
+                    <textarea class="form-control" name="review_text" rows="3" {% if review_status == true %} readonly {% endif %}></textarea>
+                </div>
+
+                {% if review_status == true %}
+                <div class="form-group">
+                    <button class="btn btn-primary" disabled>Submit</button>
+                    <p style="color:gray; display:inline">Review previously submitted.</p>
+                </div>
+                {% else %}
+                <div class="form-group">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+                {% endif %}
+            </form>
+
+        </div>
+        <div class="col pt-2">
+
+            {% if reviews_exist == false %}
+            <h3>No user reviews.</h3>
+            {% endif%}
+
+            {% if reviews_exist == true %}
+
+            <table class="table">
+                <thead class="thead-light text-center">
+                    <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.username }}</td>
+                        <td align="center">{{ review.review_score }}</td>
+                        <td>{{ review.review_text }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif%}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

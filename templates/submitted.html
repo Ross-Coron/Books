@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Submitted
+{% endblock %}
+
+{% block body %}
+
+<div class="container pt-4">
+
+    <h1>Review Submitted!</h1>
+    <ul>
+        <li>
+            You rated this book {{ review_score }}/5.
+        </li>
+        <li>
+            You wrote the following review: '{{ review_text }}'
+        </li>
+        <li>
+            Click <a href="{{ url_for('isbn', isbn=isbn) }}">here</a> to go back and <a href="{{ url_for('search') }}">here</a> to search again.
+        </li>
+    </ul>
+
+</div>
+{% endblock %}

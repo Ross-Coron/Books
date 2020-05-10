@@ -1,0 +1,18 @@
+/* Container holding the image and the text */
+.error {
+    position: relative;
+    text-align: center;
+    color: black;
+}
+
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.text_above_table {
+    margin-bottom: 20px;
+}
